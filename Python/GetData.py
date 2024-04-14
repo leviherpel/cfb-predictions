@@ -7,7 +7,7 @@ import csv
 
 # Configure API key authorization: ApiKeyAuth
 configuration = cfbd.Configuration()
-configuration.api_key['Authorization'] = ''
+configuration.api_key['Authorization'] = '<Add key here>'
 configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
