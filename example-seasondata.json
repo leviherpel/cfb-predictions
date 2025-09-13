@@ -1,0 +1,233 @@
+[
+  {
+    "game": {
+      "id": 401756846,
+      "season": 2025,
+      "week": 1,
+      "seasonType": "regular",
+      "startDate": "2025-08-23T16:00:00+00:00",
+      "startTimeTBD": false,
+      "completed": true,
+      "neutralSite": true,
+      "conferenceGame": true,
+      "venueId": 3504,
+      "venue": "Aviva Stadium",
+      "homeId": 2306,
+      "homeTeam": "Kansas State",
+      "homeConference": "Big 12",
+      "homeClassification": "fbs",
+      "homePoints": 21,
+      "homeLineScores": [
+        0,
+        7,
+        0,
+        14
+      ],
+      "homePostgameWinProbability": 0.20154441893100739,
+      "homePregameElo": 1669,
+      "homePostgameElo": 1664,
+      "awayId": 66,
+      "awayTeam": "Iowa State",
+      "awayConference": "Big 12",
+      "awayClassification": "fbs",
+      "awayPoints": 24,
+      "awayLineScores": [
+        7,
+        0,
+        7,
+        10
+      ],
+      "awayPostgameWinProbability": 0.7984555810689926,
+      "awayPregameElo": 1616,
+      "awayPostgameElo": 1621,
+      "excitementIndex": 6.029094160739601,
+      "highlights": "",
+      "notes": "Aer Lingus College Football Classic",
+      "attendance": null
+    },
+    "lines": [
+      {
+        "provider": "ESPN Bet",
+        "spread": -2.5,
+        "formattedSpread": "Kansas State -2.5",
+        "spreadOpen": -3,
+        "overUnder": 51.5,
+        "overUnderOpen": 49.5,
+        "homeMoneyline": -145,
+        "awayMoneyline": 125
+      },
+      {
+        "provider": "DraftKings",
+        "spread": -3.5,
+        "formattedSpread": "Kansas State -3.5",
+        "spreadOpen": -3.5,
+        "overUnder": 49.5,
+        "overUnderOpen": 49.5,
+        "homeMoneyline": -162,
+        "awayMoneyline": 136
+      },
+      {
+        "provider": "Bovada",
+        "spread": -3,
+        "formattedSpread": "Kansas State -3.0",
+        "spreadOpen": -2.5,
+        "overUnder": 51,
+        "overUnderOpen": 49.5,
+        "homeMoneyline": -165,
+        "awayMoneyline": 140
+      }
+    ],
+    "home_offensive_stats": {
+      "passingPlays": {
+        "explosiveness": 1.8889276468949145,
+        "successRate": 0.45161290322580644,
+        "totalPPA": 13.37061606634005,
+        "ppa": 0.43131019568838874
+      },
+      "rushingPlays": {
+        "explosiveness": 0.751161437093295,
+        "successRate": 0.23076923076923078,
+        "totalPPA": -6.847717399987957,
+        "ppa": -0.26337374615338294
+      },
+      "passingDowns": {
+        "explosiveness": 0.9417701035265765,
+        "successRate": 0.391304347826087,
+        "ppa": 0.14519032845811003
+      },
+      "standardDowns": {
+        "explosiveness": 2.0432749770317624,
+        "successRate": 0.3235294117647059,
+        "ppa": 0.09363297387692834
+      },
+      "openFieldYardsTotal": 30,
+      "openFieldYards": 1.1538461538461537,
+      "secondLevelYardsTotal": 31,
+      "secondLevelYards": 1.1923076923076923,
+      "lineYardsTotal": 59,
+      "lineYards": 2.269230769230769,
+      "stuffRate": 0.34615384615384615,
+      "powerSuccess": 0.25,
+      "explosiveness": 1.5475977839544286,
+      "successRate": 0.3508771929824561,
+      "totalPPA": 6.522898666352094,
+      "ppa": 0.11443681870793147,
+      "drives": 11,
+      "plays": 57
+    },
+    "home_defensive_stats": {
+      "passingPlays": {
+        "explosiveness": 1.600165933571354,
+        "successRate": 0.34375,
+        "totalPPA": 3.489635420399846,
+        "ppa": 0.10905110688749518
+      },
+      "rushingPlays": {
+        "explosiveness": 1.220744043490214,
+        "successRate": 0.34146341463414637,
+        "totalPPA": 5.308274650106786,
+        "ppa": 0.12947011341723869
+      },
+      "passingDowns": {
+        "explosiveness": 1.7585017167568682,
+        "successRate": 0.32,
+        "ppa": 0.30214643333270697
+      },
+      "standardDowns": {
+        "explosiveness": 1.2131898908289966,
+        "successRate": 0.3541666666666667,
+        "ppa": 0.025921859108103306
+      },
+      "openFieldYardsTotal": 14,
+      "openFieldYards": 0.34146341463414637,
+      "secondLevelYardsTotal": 44,
+      "secondLevelYards": 1.0731707317073171,
+      "lineYardsTotal": 124,
+      "lineYards": 3.0170731707317073,
+      "stuffRate": 0.1951219512195122,
+      "powerSuccess": 0.42857142857142855,
+      "explosiveness": 1.3876896751259156,
+      "successRate": 0.3424657534246575,
+      "totalPPA": 8.797910070506632,
+      "ppa": 0.12051931603433742,
+      "drives": 13,
+      "plays": 73
+    },
+    "away_offensive_stats": {
+      "passingPlays": {
+        "explosiveness": 1.600165933571354,
+        "successRate": 0.34375,
+        "totalPPA": 3.489635420399846,
+        "ppa": 0.10905110688749518
+      },
+      "rushingPlays": {
+        "explosiveness": 1.220744043490214,
+        "successRate": 0.34146341463414637,
+        "totalPPA": 5.308274650106786,
+        "ppa": 0.12947011341723869
+      },
+      "passingDowns": {
+        "explosiveness": 1.7585017167568682,
+        "successRate": 0.32,
+        "ppa": 0.30214643333270697
+      },
+      "standardDowns": {
+        "explosiveness": 1.2131898908289966,
+        "successRate": 0.3541666666666667,
+        "ppa": 0.025921859108103306
+      },
+      "openFieldYardsTotal": 14,
+      "openFieldYards": 0.34146341463414637,
+      "secondLevelYardsTotal": 44,
+      "secondLevelYards": 1.0731707317073171,
+      "lineYardsTotal": 124,
+      "lineYards": 3.0170731707317073,
+      "stuffRate": 0.1951219512195122,
+      "powerSuccess": 0.42857142857142855,
+      "explosiveness": 1.3876896751259156,
+      "successRate": 0.3424657534246575,
+      "totalPPA": 8.797910070506632,
+      "ppa": 0.12051931603433742,
+      "drives": 13,
+      "plays": 73
+    },
+    "away_defensive_stats": {
+      "passingPlays": {
+        "explosiveness": 1.8889276468949145,
+        "successRate": 0.45161290322580644,
+        "totalPPA": 13.37061606634005,
+        "ppa": 0.43131019568838874
+      },
+      "rushingPlays": {
+        "explosiveness": 0.751161437093295,
+        "successRate": 0.23076923076923078,
+        "totalPPA": -6.847717399987957,
+        "ppa": -0.26337374615338294
+      },
+      "passingDowns": {
+        "explosiveness": 0.9417701035265765,
+        "successRate": 0.391304347826087,
+        "ppa": 0.14519032845811003
+      },
+      "standardDowns": {
+        "explosiveness": 2.0432749770317624,
+        "successRate": 0.3235294117647059,
+        "ppa": 0.09363297387692834
+      },
+      "openFieldYardsTotal": 30,
+      "openFieldYards": 1.1538461538461537,
+      "secondLevelYardsTotal": 31,
+      "secondLevelYards": 1.1923076923076923,
+      "lineYardsTotal": 59,
+      "lineYards": 2.269230769230769,
+      "stuffRate": 0.34615384615384615,
+      "powerSuccess": 0.25,
+      "explosiveness": 1.5475977839544286,
+      "successRate": 0.3508771929824561,
+      "totalPPA": 6.522898666352094,
+      "ppa": 0.11443681870793147,
+      "drives": 11,
+      "plays": 57
+    }
+  }
+]

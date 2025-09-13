@@ -1,73 +1,79 @@
 from __future__ import print_function
-from Constants import csv_headers
-from cfbd.rest import ApiException
-from pprint import pprint
-import cfbd
+
 import csv
+import os
+from pprint import pprint
 
-# Configure API key authorization: ApiKeyAuth
-configuration = cfbd.Configuration()
-configuration.api_key['Authorization'] = '<Add key here>'
-configuration.api_key_prefix['Authorization'] = 'Bearer'
+import cfbd
+from cfbd.models.division_classification import DivisionClassification
+from cfbd.models.game import Game
+from cfbd.models.season_type import SeasonType
+from cfbd.rest import ApiException
 
-# create an instance of the API class
-games_api = cfbd.GamesApi(cfbd.ApiClient(configuration))
-stats_api = cfbd.StatsApi(cfbd.ApiClient(configuration))
-betting_api = cfbd.BettingApi(cfbd.ApiClient(configuration))
+from CsvHeaders import CSV_HEADERS
+import ExtractFeatures
 
-# settings for fetching data
-year = 2023
-div = "fbs"
-fileName="cfb2023-postseason.csv"
+configuration = cfbd.Configuration(
+    access_token = os.environ["CFBD_KEY"]
+)
 
+yearToParse = input("Enter the year to process (e.g., 2025): ")
 try:
-    print("Welcome to CfbAlright #FreeMac")
+    process_year = int(yearToParse)
+except ValueError:
+    print("Invalid year entered. Defaulting to 2025.")
+    year = 2025
 
-    # Get a list of all games for the specified season
-    print("Getting games for year: ", year)
-    regular_season_games= games_api.get_games(year=year,division=div)
-    post_season_games = games_api.get_games(year=year,division=div,season_type="postseason")
-    games = regular_season_games + post_season_games
+fileName = f"cfb-{process_year}-season.csv"
 
-    # Write object properties to CSV file
+with cfbd.ApiClient(configuration) as api_client:
+    games_api = cfbd.GamesApi(api_client)
+    betting_api = cfbd.BettingApi(api_client)
+    stats_api = cfbd.StatsApi(api_client)
+
     with open(fileName, mode='w', newline='') as file:
         writer = csv.writer(file)
-
-        # Iterate through each game and collect data
-        writer.writerow(csv_headers)
+        writer.writerow(CSV_HEADERS)
+        
+        print(f"Processing year: {process_year}")
+        
+        games = games_api.get_games(year=process_year)
+        print(f"Games for {process_year}:")
+        pprint(games)
+        
         for game in games:
-            print("Compiling game: ", game.id, " - ", game.home_team, " vs. ", game.away_team)
-            
-            game_line = betting_api.get_lines(game_id=game.id)
-            #game_stats = stats_api.get_advanced_team_game_stats(year=year, week=game.week, team=game.home_team, opponent=game.away_team, exclude_garbage_time=True)
+            try:
+                print("Compiling game: ", game.id, " - ", game.home_team, " vs. ", game.away_team)
 
-            # Update the dictionary with properties from GameLine object
-            for line in game_line[0].lines:
-                
-                # Create a dictionary to store the combined row
-                combined_row = {}
+                # Get the game lines and advanced stats
+                game_line = betting_api.get_lines(game_id=game.id)
 
-                # Update the dictionary with properties from objects
-                for property in csv_headers:
-                    try:
-                        combined_row[property] = getattr(game, property)
-                    except AttributeError:
-                        pass
+                # advanced stats for home
+                home_game_stats = stats_api.get_advanced_game_stats(
+                    year=process_year, week=game.week, team=game.home_team,
+                    opponent=game.away_team, exclude_garbage_time=True
+                )
+                home_offensive_stats = home_game_stats[0].offense if home_game_stats else None
+                home_defensive_stats = home_game_stats[0].defense if home_game_stats else None
 
-                    try:
-                        combined_row[property] = getattr(line, property)
-                    except AttributeError:
-                        pass
-                        
-                # Set the favorite
-                if combined_row["formatted_spread"].find(game.home_team) != -1:
-                    combined_row["favorite"] = game.home_id
-                else:
-                    combined_row["favorite"] = game.away_id
+                # advanced stats for away
+                away_game_stats = stats_api.get_advanced_game_stats(
+                    year=process_year, week=game.week, team=game.away_team,
+                    opponent=game.home_team, exclude_garbage_time=True
+                )
+                away_offensive_stats = away_game_stats[0].offense if away_game_stats else None
+                away_defensive_stats = away_game_stats[0].defense if away_game_stats else None
 
-                writer.writerow([combined_row.get(attr, '') for attr in csv_headers])
+                flattenStats = ExtractFeatures.extract_game_features({
+                    "game": game.to_dict() if hasattr(game, "to_dict") else str(game),
+                    "lines": [line.to_dict() if hasattr(line, "to_dict") else str(line) for line in game_line[0].lines],
+                    "home_offensive_stats": home_offensive_stats.to_dict() if hasattr(home_offensive_stats, "to_dict") else str(home_offensive_stats),
+                    "home_defensive_stats": home_defensive_stats.to_dict() if hasattr(home_defensive_stats, "to_dict") else str(home_defensive_stats),
+                    "away_offensive_stats": away_offensive_stats.to_dict() if hasattr(away_offensive_stats, "to_dict") else str(away_offensive_stats),
+                    "away_defensive_stats": away_defensive_stats.to_dict() if hasattr(away_defensive_stats, "to_dict") else str(away_defensive_stats),
+                })
 
+                writer.writerow(flattenStats)
 
-except ApiException as e:
-    print("Exception when calling BettingApi->get_lines: %s\n" % e)
-    
+            except Exception as e:
+                print(f"Exception when processing game {game}: {e}")
