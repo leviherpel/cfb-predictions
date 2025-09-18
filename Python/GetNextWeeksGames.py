@@ -30,8 +30,9 @@ try:
 except ValueError:
     print("Invalid week entered. Defaulting to 1.")
     process_week = 1
-
-fileName = f"cfb-{process_year}-week{process_week}-predictions.csv"
+    
+# i.e. cfb_week3_predictions_empty.csv
+fileName = f"cfb_week{process_week}_predictions_empty.csv"
 
 with cfbd.ApiClient(configuration) as api_client:
     games_api = cfbd.GamesApi(api_client)

@@ -23,6 +23,14 @@ try:
 except ValueError:
     print("Invalid year entered. Defaulting to 2025.")
     year = 2025
+    
+    
+weekToParse = input("Enter current week: ")
+try:
+    process_week = int(weekToParse)
+except ValueError:
+    print("Invalid week entered. Defaulting to all weeks in {process_year}.")
+    process_week = -1
 
 fileName = f"cfb-{process_year}-season.csv"
 
@@ -35,15 +43,19 @@ with cfbd.ApiClient(configuration) as api_client:
         writer = csv.writer(file)
         writer.writerow(CSV_HEADERS)
         
-        print(f"Processing year: {process_year}")
+        print(f"Processing year: {process_year} with week filter {process_week}")
         
-        games = games_api.get_games(year=process_year)
-        print(f"Games for {process_year}:")
+        games = games_api.get_games(year=process_year)  
+        print(f"Games for {process_year} up to week {process_week}:")
         pprint(games)
         
         for game in games:
             try:
-                print("Compiling game: ", game.id, " - ", game.home_team, " vs. ", game.away_team)
+                print("Compiling game: ", game.id, " - ", game.home_team, " vs. ", game.away_team, " week ", game.week)
+
+                if process_week != -1 and game.week >= process_week:
+                    print(f"Skipping game {game.id} because it is in week {game.week}, beyond the specified week {process_week}.")
+                    break
 
                 # Get the game lines and advanced stats
                 game_line = betting_api.get_lines(game_id=game.id)
@@ -65,8 +77,8 @@ with cfbd.ApiClient(configuration) as api_client:
                 away_defensive_stats = away_game_stats[0].defense if away_game_stats else None
 
                 flattenStats = ExtractFeatures.extract_game_features({
-                    "game": game.to_dict() if hasattr(game, "to_dict") else str(game),
-                    "lines": [line.to_dict() if hasattr(line, "to_dict") else str(line) for line in game_line[0].lines],
+                    "game": game.to_dict() if hasattr(game, "to_dict") else dict(game) if isinstance(game, dict) else {},
+                    "lines": [line.to_dict() if hasattr(line, "to_dict") else str(line) for line in game_line[0].lines] if game_line and len(game_line) > 0 and hasattr(game_line[0], "lines") and game_line[0].lines else [],
                     "home_offensive_stats": home_offensive_stats.to_dict() if hasattr(home_offensive_stats, "to_dict") else str(home_offensive_stats),
                     "home_defensive_stats": home_defensive_stats.to_dict() if hasattr(home_defensive_stats, "to_dict") else str(home_defensive_stats),
                     "away_offensive_stats": away_offensive_stats.to_dict() if hasattr(away_offensive_stats, "to_dict") else str(away_offensive_stats),

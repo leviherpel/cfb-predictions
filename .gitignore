@@ -162,3 +162,7 @@ cython_debug/
 # OS-specific files (macOS, Windows)
 *.DS_Store
 Thumbs.db
+
+# Do not check in data
+*.csv
+*.numbers
